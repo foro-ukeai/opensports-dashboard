@@ -221,6 +221,49 @@ tr.alt td{background:#F8F0FC}
 </style>
 </head>
 <body>
+<script>
+(function(){
+  const HASH='e43f05e491a50994a71a482c10cf61f0c941c966d0b99f7f47d32c1cf4ee39f5';
+  async function sha256(msg){
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  async function check(){
+    if(sessionStorage.getItem('os_auth')==='1'){return;}
+    const overlay=document.getElementById('auth-overlay');
+    overlay.style.display='flex';
+    document.getElementById('auth-submit').addEventListener('click',async()=>{
+      const val=document.getElementById('auth-input').value;
+      const h=await sha256(val);
+      if(h===HASH){
+        sessionStorage.setItem('os_auth','1');
+        overlay.style.display='none';
+      } else {
+        document.getElementById('auth-error').style.display='block';
+        document.getElementById('auth-input').value='';
+        document.getElementById('auth-input').focus();
+      }
+    });
+    document.getElementById('auth-input').addEventListener('keydown',e=>{
+      if(e.key==='Enter') document.getElementById('auth-submit').click();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', check);
+})();
+</script>
+<div id="auth-overlay" style="display:none;position:fixed;inset:0;background:#004E8A;z-index:99999;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+  <div style="font-family:Montserrat,sans-serif;text-align:center">
+    <div style="color:#fff;font-size:22px;font-weight:800;margin-bottom:4px">OPEN SPORTS</div>
+    <div style="color:rgba(255,255,255,.6);font-size:12px;margin-bottom:28px">Baseline Metrics · Acceso restringido</div>
+    <input id="auth-input" type="password" placeholder="Contraseña" autofocus
+      style="display:block;width:260px;padding:12px 16px;border-radius:8px;border:none;font-size:15px;outline:none;margin-bottom:12px"/>
+    <button id="auth-submit"
+      style="width:260px;padding:12px;background:#E30233;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">
+      Ingresar
+    </button>
+    <div id="auth-error" style="display:none;color:#ffb3c1;font-size:12px;margin-top:10px">Contraseña incorrecta</div>
+  </div>
+</div>
 
 
 <div id="sidebar">
