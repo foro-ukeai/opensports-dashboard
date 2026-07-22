@@ -846,7 +846,7 @@ function renderKPIs(){
     }
   } else {
     const k=DATA.kpis;
-    prev=CUR_YEAR==='2026'?'2025 (E-A)':'2024';
+    prev=CUR_YEAR==='2026'?'2025 (E-J)':'2024';
     items=[
       ['Facturación',fmtM(k.facturacion[0]),fmtM(k.facturacion[1]),pct(k.facturacion[0],k.facturacion[1])],
       ['Pedidos',fmtN(k.pedidos[0]),fmtN(k.pedidos[1]),pct(k.pedidos[0],k.pedidos[1])],
