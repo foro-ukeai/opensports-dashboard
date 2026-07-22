@@ -1998,12 +1998,6 @@ function renderCrucePanel(containerId, items){
     var safeName = it.name ? it.name.replace(/"/g,'&quot;') : '-';
     html += '<div class="cruce-bar-row">'
       + '<div class="cruce-bar-name" title="' + safeName + '">' + (it.name || '-') + '</div>'
-      + '<div class="cruce-bar-track">'
-      +   '<div class="cruce-bar-fill" style="width:' + barPct + '%;background:' + color + '"></div>'
-      + '</div>'
-      + '<div style="height:4px;background:#F0F0F0;border-radius:2px;margin-bottom:3px;overflow:hidden">'
-      +   '<div style="height:4px;width:' + pctN + '%;background:#E30233;border-radius:2px"></div>'
-      + '</div>'
       + '<div class="cruce-bar-meta">'
       +   '<span style="color:#0A0A0A;font-weight:700">' + fmtM(it.fact) + '</span>'
       +   '<span>' + it.share + '% del total</span>'
